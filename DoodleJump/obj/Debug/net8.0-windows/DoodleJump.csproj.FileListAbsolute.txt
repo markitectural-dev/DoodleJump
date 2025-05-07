@@ -6,7 +6,6 @@ C:\Users\Mi\source\repos\DoodleJump\DoodleJump\bin\Debug\net8.0-windows\DoodleJu
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\bin\Debug\net8.0-windows\Model.dll
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\bin\Debug\net8.0-windows\Model.pdb
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.csproj.AssemblyReference.cache
-C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.Form1.resources
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.csproj.GenerateResource.cache
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.AssemblyInfoInputs.cache
@@ -18,3 +17,7 @@ C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\refint\D
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.pdb
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.genruntimeconfig.cache
 C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\ref\DoodleJump.dll
+C:\Users\Mi\source\repos\DoodleJump\DoodleJump\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.Forms.MainForm.resources
+C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.Forms.MenuForm.resources
+C:\Users\Mi\source\repos\DoodleJump\DoodleJump\obj\Debug\net8.0-windows\DoodleJump.sourcelink.json

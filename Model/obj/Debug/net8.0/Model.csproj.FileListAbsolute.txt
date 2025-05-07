@@ -9,3 +9,5 @@ C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\Model.dll
 C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\refint\Model.dll
 C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\Model.pdb
 C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\ref\Model.dll
+C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\Model.csproj.AssemblyReference.cache
+C:\Users\Mi\source\repos\DoodleJump\Model\obj\Debug\net8.0\Model.sourcelink.json
