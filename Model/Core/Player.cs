@@ -31,11 +31,17 @@ namespace Model.Core {
         public void MoveLeft() {
             VelocityX = -MoveSpeed;
         }
-
+        public void MoveLeft(float customSpeed) {
+            VelocityX = -customSpeed;
+        }
+    
         public void MoveRight() {
             VelocityX = MoveSpeed;
         }
-
+        public void MoveRight(float customSpeed) {
+            VelocityX = customSpeed;
+        }
+        
         public void StopMoving() {
             VelocityX = 0;
         }
