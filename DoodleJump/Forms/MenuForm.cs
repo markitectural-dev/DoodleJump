@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Model.Core;
 using Model.Data;
+using static Model.Data.GameSerializer;
 
 namespace DoodleJump.Forms {
     public partial class MenuForm : Form {
@@ -140,7 +141,7 @@ namespace DoodleJump.Forms {
                 SerializerType type = cboSaveFormat.SelectedIndex == 0
                                         ? SerializerType.JSON : SerializerType.XML;
 
-                GameSerializer serializer = GameSerializer.GetSerializer(type);
+                GameSerializer serializer = GameSerializer.GetSerializer<GameSerializer>(type);
 
                 // Load the game
                 GameEngine gameEngine = serializer.LoadGame(defaultSavePath);
