@@ -86,7 +86,7 @@ namespace Model.Core {
                 AddRandomPlatform(x, y);
             }
 
-            Platforms.RemoveAll(p => p.Y > CameraY + ScreenHeight * 3);
+            Platforms.RemoveAll(p => p.Y > CameraY + ScreenHeight);
         }
     }
 }
