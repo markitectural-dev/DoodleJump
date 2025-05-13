@@ -12,7 +12,7 @@ namespace Model.Core {
         public float InitialJumpVelocity { get; private set; } = -15.0f;
         public float Gravity { get; private set; } = 0.5f;
         public float MaxVelocityY { get; private set; } = 1000000.0f;
-        public float MoveSpeed { get; private set; } = 7.0f;
+        public float MoveSpeed { get; private set; } = 8.0f;
 
         public Player(float x, float y, float width = 40, float height = 40) {
             X = x;

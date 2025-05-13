@@ -47,7 +47,7 @@ namespace Model.Core {
             Platforms = platforms;
             Score = score;
             IsGameOver = false;
-            HighestPoint = ScreenHeight - (int)Player.Y;
+            HighestPoint = score;
             CameraY = ScreenHeight - (int)Player.Y - ScreenHeight / 2;
         }
 
