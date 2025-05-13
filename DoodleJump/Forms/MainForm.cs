@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -15,9 +16,16 @@ namespace DoodleJump.Forms {
 
         private bool leftKeyPressed = false;
         private bool rightKeyPressed = false;
-
+        private bool shiftKeyPressed = false;
+        private float sprintMeter = 100f;
+        private float maxSprintMeter = 100f;
+        private float sprintDrainRate = 30f; 
+        private float sprintRechargeRate = 15f; 
+        private bool canSprint => sprintMeter > 20f; 
         private readonly int gameWidth = 480;
         private readonly int gameHeight = 720;
+        private Font smallFont = new Font("Arial", 8);
+
 
         public MainForm(GameEngine engine, string savePath, SerializerType serializerType) {
             InitializeComponent();
@@ -75,6 +83,10 @@ namespace DoodleJump.Forms {
                     rightKeyPressed = true;
                     break;
 
+                case Keys.ShiftKey:
+                    shiftKeyPressed = true;
+                    break;
+
                 case Keys.Escape:
                     this.Close();
                     break;
@@ -94,15 +106,33 @@ namespace DoodleJump.Forms {
                 case Keys.D:
                     rightKeyPressed = false;
                     break;
+                
+                case Keys.ShiftKey:
+                    shiftKeyPressed = false;
+                    break;
             }
         }
 
         private void GameTimer_Tick(object sender, EventArgs e) {
+            float sprintMultiplier = 2f;
+
+            if (shiftKeyPressed && canSprint)
+                sprintMeter = Math.Max(0, sprintMeter - sprintDrainRate * (gameTimer.Interval / 1000f));
+            else 
+                sprintMeter = Math.Min(maxSprintMeter, sprintMeter + sprintRechargeRate * (gameTimer.Interval / 1000f));
+            
+
             if (leftKeyPressed) {
-                gameEngine.Player.MoveLeft();
+                if (shiftKeyPressed && canSprint)
+                    gameEngine.Player.MoveLeft(gameEngine.Player.MoveSpeed * sprintMultiplier);
+                else
+                    gameEngine.Player.MoveLeft();
             }
             else if (rightKeyPressed) {
-                gameEngine.Player.MoveRight();
+                if (shiftKeyPressed && canSprint)
+                    gameEngine.Player.MoveRight(gameEngine.Player.MoveSpeed * sprintMultiplier); 
+                else
+                    gameEngine.Player.MoveRight();
             }
             else {
                 gameEngine.Player.StopMoving();
@@ -146,13 +176,13 @@ namespace DoodleJump.Forms {
 
                 Brush brush;
                 if (platform.Color == Color.Green)
-                    brush = Brushes.Green;
+                    brush = Brushes.LimeGreen;
                 else if (platform.Color == Color.Orange)
-                    brush = Brushes.Orange;
+                    brush = Brushes.DarkOrange;
                 else if (platform.Color == Color.Blue)
-                    brush = Brushes.Blue;
+                    brush = Brushes.DodgerBlue;
                 else if (platform.Color == Color.Red)
-                    brush = Brushes.Red;
+                    brush = Brushes.Crimson;
                 else
                     brush = Brushes.Black;  
 
@@ -165,6 +195,25 @@ namespace DoodleJump.Forms {
 
             string scoreText = $"Score: {gameEngine.Score}";
             g.DrawString(scoreText, Font, Brushes.Black, 10, 10);
+        
+
+            float meterWidth = 100;
+            float meterHeight = 10;
+            RectangleF meterBackground = new RectangleF(10, 50, meterWidth, meterHeight);
+            RectangleF meterFill = new RectangleF(10, 50, meterWidth * (sprintMeter / maxSprintMeter), meterHeight);
+            
+            g.FillRectangle(Brushes.DarkGray, meterBackground);
+            g.DrawRectangle(Pens.Black, 10, 50, meterWidth, meterHeight);
+
+            Brush meterBrush;
+            if (!canSprint)
+                meterBrush = Brushes.Crimson;
+            else if (sprintMeter < 50)
+                meterBrush = Brushes.Gold;
+            else
+                meterBrush = Brushes.LimeGreen;
+
+            g.FillRectangle(meterBrush, meterFill);
         }
     }
 }
