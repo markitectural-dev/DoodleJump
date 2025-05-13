@@ -13,10 +13,8 @@ namespace Model.Core
         Color Color { get; }
         bool IsBreakable { get; }
         
-        // Method for platform behavior when player jumps on it
         void Bounce(Player player);
         
-        // Method to update platform state
         void Update();
     }
 }

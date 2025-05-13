@@ -8,7 +8,6 @@ namespace Model.Core {
 
         public NormalPlatform(float x, float y) : base(x, y) { }
 
-        // simply jump off the platform
         public override void Bounce(Player player) {
             player.Jump();
         }

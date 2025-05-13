@@ -15,14 +15,11 @@ namespace DoodleJump.Forms {
             if (string.IsNullOrEmpty(path) || path.Length <= maxLength)
                 return path;
 
-            // Get just the folder name for the beginning
             string folderName = Path.GetFileName(path);
 
-            // If folder name itself is too long, truncate it
             if (folderName.Length >= maxLength - 3)
                 return folderName[..(maxLength - 3)] + "...";
 
-            // Otherwise show the drive and folder name with ... in between
             string drive = Path.GetPathRoot(path);
             int remainingChars = maxLength - drive.Length - folderName.Length - 3;
 
@@ -34,7 +31,6 @@ namespace DoodleJump.Forms {
         public MenuForm() {
             InitializeComponent();
 
-            // Ensure save directory exists
             saveFolderPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "DoodleJump");
@@ -47,11 +43,9 @@ namespace DoodleJump.Forms {
             toolTip1.SetToolTip(lnkSaveFolder, saveFolderPath);
             toolTip1.SetToolTip(lblSaveFolderTitle, "Click the path to change save location");
 
-            // Disable Continue button by default
             btnContinueGame.Enabled = false;
             cboSaveFormat.SelectedIndex = 0;
 
-            // Then check if a valid save file exists
             CheckSaveFileExists();
         }
 
@@ -59,7 +53,6 @@ namespace DoodleJump.Forms {
             bool fileExists = File.Exists(defaultSavePath);
             if (fileExists) {
                 try {
-                    // Try to read the file to make sure it's valid
                     string fileText = File.ReadAllText(defaultSavePath);
                     if (!string.IsNullOrWhiteSpace(fileText) && fileText.Contains("PlayerX")) {
                         btnContinueGame.Enabled = true;
@@ -68,7 +61,6 @@ namespace DoodleJump.Forms {
                         return;
                     }
                     else {
-                        // File exists but doesn't have required content --> invalid
                         btnContinueGame.Enabled = false;
                         lblFileStatus.Text = "Invalid file structure";
                         lblFileStatus.ForeColor = Color.Red;
@@ -76,7 +68,6 @@ namespace DoodleJump.Forms {
                     }
                 }
                 catch {
-                    // If there's any other error reading the file, keep button disabled
                     btnContinueGame.Enabled = false;
                     lblFileStatus.Text = "Error reading save file";
                     lblFileStatus.ForeColor = Color.Red;
@@ -90,7 +81,6 @@ namespace DoodleJump.Forms {
         }
 
         private void cboSaveFormat_SelectedIndexChanged(object sender, EventArgs e) {
-            // Recheck save file validity when format changes
             CheckSaveFileExists();
         }
 
@@ -108,7 +98,6 @@ namespace DoodleJump.Forms {
                         Directory.CreateDirectory(saveFolderPath);
                     }
 
-                    // Check if save exists in the new location
                     CheckSaveFileExists();
                 }
             }
@@ -116,10 +105,8 @@ namespace DoodleJump.Forms {
 
         private void btnNewGame_Click(object sender, EventArgs e) {
             try {
-                // Create a new game engine
                 GameEngine gameEngine = new GameEngine();
 
-                // Start a new game session
                 StartGame(gameEngine);
             }
             catch (Exception ex) {
@@ -130,23 +117,19 @@ namespace DoodleJump.Forms {
 
         private void btnContinueGame_Click(object sender, EventArgs e) {
             try {
-                // Check if save file exists
                 if (!File.Exists(defaultSavePath)) {
                     MessageBox.Show("No saved game found.", "Information",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                // Create JSON serializer
                 SerializerType type = cboSaveFormat.SelectedIndex == 0
                                         ? SerializerType.JSON : SerializerType.XML;
 
                 GameSerializer serializer = GameSerializer.GetSerializer<GameSerializer>(type);
 
-                // Load the game
                 GameEngine gameEngine = serializer.LoadGame(defaultSavePath);
 
-                // Start the game with loaded state
                 StartGame(gameEngine);
             }
             catch (Exception ex) {
@@ -156,19 +139,16 @@ namespace DoodleJump.Forms {
         }
 
         private void StartGame(GameEngine gameEngine) {
-            // Hide this form
             this.Hide();
 
             SerializerType type = cboSaveFormat.SelectedIndex == 0
                         ? SerializerType.JSON : SerializerType.XML;
 
-            // Create and show the game form
             using (var gameForm = new MainForm(gameEngine, defaultSavePath, type)) {
                 gameForm.FormClosed += (s, args) => this.Show();
                 gameForm.ShowDialog();
             }
 
-            // Refresh save file button state when returning to menu
             CheckSaveFileExists();
         }
 

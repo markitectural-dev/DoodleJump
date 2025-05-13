@@ -9,7 +9,7 @@ namespace Model.Core {
 
         public override void Bounce(Player player) {
             player.Jump();
-            IsActive = false; // deactivate platform after use
+            IsActive = false; 
         }
     }
 }

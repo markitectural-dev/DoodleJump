@@ -6,13 +6,11 @@ using Newtonsoft.Json;
 
 namespace Model.Data {
     public class GameState {
-        // Player state
         public float PlayerX { get; set; }
         public float PlayerY { get; set; }
         public List<PlatformState> Platforms { get; set; } = new List<PlatformState>();
         public int Score { get; set; }
 
-        // Nested class for platform serialization
         public class PlatformState {
             public float X { get; set; }
             public float Y { get; set; }
@@ -21,7 +19,6 @@ namespace Model.Data {
 
         public GameState() { }
 
-        // Create from game engine
         public GameState(GameEngine engine) {
             PlayerX = engine.Player.X;
             PlayerY = engine.Player.Y;

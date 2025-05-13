@@ -36,9 +36,7 @@
             cboSaveFormat = new ComboBox();
             lblFileStatus = new Label();
             SuspendLayout();
-            // 
-            // lblTitle
-            // 
+ 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             lblTitle.Location = new Point(164, 82);
@@ -61,9 +59,7 @@
             btnNewGame.Text = "New Game";
             btnNewGame.UseVisualStyleBackColor = false;
             btnNewGame.Click += btnNewGame_Click;
-            // 
-            // btnContinueGame
-            // 
+  
             btnContinueGame.BackColor = SystemColors.Highlight;
             btnContinueGame.Font = new Font("Segoe UI", 12F);
             btnContinueGame.Location = new Point(204, 356);
@@ -74,9 +70,7 @@
             btnContinueGame.Text = "Continue Game";
             btnContinueGame.UseVisualStyleBackColor = false;
             btnContinueGame.Click += btnContinueGame_Click;
-            // 
-            // lnkSaveFolder
-            // 
+  
             lnkSaveFolder.ActiveLinkColor = Color.DarkBlue;
             lnkSaveFolder.AutoSize = true;
             lnkSaveFolder.Font = new Font("Segoe UI", 9F);
@@ -90,9 +84,7 @@
             lnkSaveFolder.Text = "Default save location";
             lnkSaveFolder.VisitedLinkColor = Color.RoyalBlue;
             lnkSaveFolder.LinkClicked += lnkSaveFolder_LinkClicked;
-            // 
-            // lblSaveFolderTitle
-            // 
+    
             lblSaveFolderTitle.AutoSize = true;
             lblSaveFolderTitle.Font = new Font("Segoe UI", 9F);
             lblSaveFolderTitle.Location = new Point(204, 507);
@@ -100,9 +92,7 @@
             lblSaveFolderTitle.Size = new Size(166, 32);
             lblSaveFolderTitle.TabIndex = 0;
             lblSaveFolderTitle.Text = "Save Location:";
-            // 
-            // lblFormat
-            // 
+   
             lblFormat.AutoSize = true;
             lblFormat.Font = new Font("Segoe UI", 9F);
             lblFormat.Location = new Point(204, 594);
@@ -110,9 +100,7 @@
             lblFormat.Size = new Size(151, 32);
             lblFormat.TabIndex = 5;
             lblFormat.Text = "Save Format:";
-            // 
-            // cboSaveFormat
-            // 
+
             cboSaveFormat.DropDownStyle = ComboBoxStyle.DropDownList;
             cboSaveFormat.Font = new Font("Segoe UI", 9F);
             cboSaveFormat.FormattingEnabled = true;
@@ -122,9 +110,7 @@
             cboSaveFormat.Size = new Size(203, 40);
             cboSaveFormat.TabIndex = 5;
             cboSaveFormat.SelectedIndexChanged += cboSaveFormat_SelectedIndexChanged;
-            // 
-            // lblFileStatus
-            // 
+          
             lblFileStatus.AutoSize = true;
             lblFileStatus.Font = new Font("Segoe UI", 9F);
             lblFileStatus.ForeColor = Color.Gray;
@@ -133,9 +119,8 @@
             lblFileStatus.Size = new Size(171, 32);
             lblFileStatus.TabIndex = 6;
             lblFileStatus.Text = "No save found";
-            // 
+            
             // MenuForm
-            // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(743, 670);

@@ -8,13 +8,10 @@ namespace Model.Data {
     public class JSONGameSerializer : GameSerializer {
         public override void SaveGame(GameEngine engine, string filePath) {
             try {
-                // Create game state from engine
                 GameState gameState = new GameState(engine);
 
-                // Serialize to JSON
-                string json = JsonConvert.SerializeObject(gameState, Formatting.Indented); // serialize with visual structure
+                string json = JsonConvert.SerializeObject(gameState, Formatting.Indented); 
 
-                // Ensure directory exists
                 string directory = Path.GetDirectoryName(filePath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) 
                     Directory.CreateDirectory(directory);
@@ -29,19 +26,14 @@ namespace Model.Data {
 
         public override GameEngine LoadGame(string filePath, int screenWidth = 480, int screenHeight = 720) {
             try {
-                // Read JSON from file
                 string json = File.ReadAllText(filePath);
 
-                // Deserialize JSON
                 GameState gameState = JsonConvert.DeserializeObject<GameState>(json);
 
-                // Create new game engine
                 GameEngine engine = new GameEngine(screenWidth, screenHeight);
 
-                // Create player
                 Player player = new Player(gameState.PlayerX, gameState.PlayerY);
 
-                // Create platforms
                 List<IPlatform> platforms = new List<IPlatform>();
                 foreach (var platformState in gameState.Platforms) {
                     IPlatform platform;
@@ -65,7 +57,6 @@ namespace Model.Data {
                     platforms.Add(platform);
                 }
 
-                // Load game state into engine
                 engine.LoadGame(player, platforms, gameState.Score);
 
                 return engine;
