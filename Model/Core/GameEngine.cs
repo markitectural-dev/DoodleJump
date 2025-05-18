@@ -12,6 +12,7 @@ namespace Model.Core {
         public bool IsGameOver { get; private set; } = false;
         public float CameraY { get; private set; } = 0;
         private float HighestPoint { get; set; } = 0;
+        private float HighestCameraY { get; set; } = 0;
 
         private Random Random { get; set; } = new Random();
 
@@ -47,8 +48,9 @@ namespace Model.Core {
             Platforms = platforms;
             Score = score;
             IsGameOver = false;
-            HighestPoint = ScreenHeight - (int)Player.Y;
-            CameraY = ScreenHeight - (int)Player.Y - ScreenHeight / 2;
+            HighestPoint = score;
+            
+            HighestCameraY = ScreenHeight - (int)Player.Y - ScreenHeight / 2; 
         }
 
 
@@ -58,20 +60,7 @@ namespace Model.Core {
             if (IsGameOver)
                 return;
 
-            float oldPlayerY = Player.Y;
-
             Player.Update();
-
-            if (Player.Y > (ScreenHeight - HighestPoint)) {
-                FallDistance = Player.Y - (ScreenHeight - HighestPoint);
-
-                if (FallDistance > ScreenHeight * 3.5) {
-                    IsGameOver = true;
-                    return;
-                }
-            } else 
-                FallDistance = 0;
-            
 
             HandlePlayerWrapping();
 
@@ -89,16 +78,23 @@ namespace Model.Core {
                 Score = (int)HighestPoint;
             }
 
-            if (Player.Y < ScreenHeight / 2) 
-                CameraY = Player.Y - ScreenHeight / 2;
-            
+            if (Player.Y < ScreenHeight / 2) {
+                float newCameraY = Player.Y - ScreenHeight / 2;
+        
+                if (newCameraY < HighestCameraY) {
+                    CameraY = newCameraY;
+                    HighestCameraY = newCameraY;
+                } else {
+                    CameraY = HighestCameraY;
+                }
+            }
 
             float topPlatformY = Platforms.Count > 0 ? Platforms.Min(p => p.Y) : 0;
             if (topPlatformY > CameraY) 
                 GenerateNewPlatformRowWithinBounds();
             
 
-            if (Player.Y > CameraY + ScreenHeight) 
+            if (Player.Y > CameraY + ScreenHeight - Player.Height) 
                 IsGameOver = true;
             
         }

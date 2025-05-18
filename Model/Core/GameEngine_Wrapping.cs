@@ -15,6 +15,27 @@ namespace Model.Core {
             int leftMargin = 20;
             int rightMargin = 20 + (int)platformWidth;
 
+            for (int attempts = 0; attempts < 10; attempts++) {
+                float x = Random.Next(leftMargin, ScreenWidth - rightMargin);
+                
+                bool tooClose = false;
+                
+                var recentPlatforms = Platforms.OrderByDescending(p => p.Y).Take(5);
+                foreach (var platform in recentPlatforms) {
+
+                    if (Math.Abs(platform.Y - (CameraY - ScreenHeight / 2)) > 80)
+                        continue;
+                        
+                    if (Math.Abs(x - platform.X) > platformWidth * 1.2) {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                
+                if (!tooClose)
+                    return x;
+            }
+
             return Random.Next(leftMargin, ScreenWidth - rightMargin);
         }
 
@@ -54,15 +75,18 @@ namespace Model.Core {
             int platformsToAdd = 5;
             float platformWidth = 60;
 
+            float totalVerticalSpace = 300f; 
+            float sectionHeight = totalVerticalSpace / platformsToAdd;
+
             for (int i = 0; i < platformsToAdd; i++) {
                 float x = GetSafePlatformX(platformWidth);
 
-                float y = topPlatformY - 40 - Random.Next(30, 60) * (i + 1);
+                float y = topPlatformY - (sectionHeight * i) - Random.Next(10, (int)(sectionHeight * 0.8f));
 
                 AddRandomPlatform(x, y);
             }
 
-            Platforms.RemoveAll(p => p.Y > CameraY + ScreenHeight * 3);
+            Platforms.RemoveAll(p => p.Y > CameraY + ScreenHeight);
         }
     }
 }

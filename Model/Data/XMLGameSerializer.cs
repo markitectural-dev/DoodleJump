@@ -1,4 +1,5 @@
-﻿using Model.Core;
+﻿using System.Xml.Serialization;
+using Model.Core;
 
 namespace Model.Data {
 
