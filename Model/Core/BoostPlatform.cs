@@ -11,7 +11,7 @@ namespace Model.Core {
         public override bool IsBreakable => false;  
         public float BoostMultiplier { get; private set; } = 2f; 
 
-        public BoostPlatform(float x, float y) : base(x, y) {}
+        public BoostPlatform(float x, float y) : base(x, y, 60, 25) {}
         public override void Bounce(Player player) {
             player.Jump(BoostMultiplier); 
         }

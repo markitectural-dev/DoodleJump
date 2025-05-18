@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oknUokLT21Y=",
+  "dgSpecHash": "lTilV/8CKf8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mi\\source\\repos\\DoodleJump\\DoodleJump\\DoodleJump.csproj",
+  "projectFilePath": "C:\\Users\\artem\\Source\\Repos\\DoodleJump2\\DoodleJump\\DoodleJump.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Mi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\artem\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }
