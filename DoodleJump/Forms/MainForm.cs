@@ -26,6 +26,12 @@ namespace DoodleJump.Forms {
         private readonly int gameHeight = 720;
         private Font smallFont = new Font("Arial", 8);
 
+        private Image player;
+        private Image normal_platform;
+        private Image break_platform_t1;
+        private Image break_platform_t2;
+        private Image jump_platform;
+
 
         public MainForm(GameEngine engine, string savePath, SerializerType serializerType) {
             InitializeComponent();
@@ -48,6 +54,13 @@ namespace DoodleJump.Forms {
 
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
+
+            player = Image.FromFile("Forms/Image/player.png");
+            normal_platform = Image.FromFile("Forms/Image/platform.png");
+            break_platform_t1 = Image.FromFile("Forms/Image/breakT1.png");
+            break_platform_t2 = Image.FromFile("Forms/Image/break_t2.png");
+            jump_platform = Image.FromFile("Forms/Image/jumpP.png");
+
 
             gameTimer.Start();
         }
@@ -160,10 +173,14 @@ namespace DoodleJump.Forms {
             float cameraY = gameEngine.CameraY;
 
             float playerScreenY = gameEngine.Player.Y - cameraY;
-            g.FillRectangle(Brushes.Blue,
-                gameEngine.Player.X,
-                playerScreenY,
-                40, 40);
+
+            if (player != null)
+            {
+                g.DrawImage(player,
+                    gameEngine.Player.X,
+                    playerScreenY,
+                    40, 40);
+            }
 
             foreach (var platform in gameEngine.Platforms) {
                 if (!platform.IsActive)
@@ -174,36 +191,38 @@ namespace DoodleJump.Forms {
                 if (platformScreenY > gameHeight || platformScreenY + platform.Height < 0)
                     continue;
 
-                Brush brush;
+                Image i;
                 if (platform.Color == Color.Green)
-                    brush = Brushes.LimeGreen;
+                    i = normal_platform;
                 else if (platform.Color == Color.Orange)
-                    brush = Brushes.DarkOrange;
+                    i = break_platform_t1;
                 else if (platform.Color == Color.Blue)
-                    brush = Brushes.DodgerBlue;
+                    i = jump_platform;
                 else if (platform.Color == Color.Red)
-                    brush = Brushes.Crimson;
+                    i = break_platform_t2;
                 else
-                    brush = Brushes.Black;  
-
-                g.FillRectangle(brush,
-                    platform.X,
-                    platformScreenY,
-                    platform.Width,
-                    platform.Height);
+                    i = null;
+                if (i != null)
+                {
+                    g.DrawImage(i,
+                        platform.X,
+                        platformScreenY,
+                        platform.Width,
+                        platform.Height);
+                }
             }
 
             string scoreText = $"Score: {gameEngine.Score}";
-            g.DrawString(scoreText, Font, Brushes.Black, 10, 10);
+            g.DrawString(scoreText, Font, Brushes.White, 10, 10);
         
 
             float meterWidth = 100;
-            float meterHeight = 10;
-            RectangleF meterBackground = new RectangleF(10, 50, meterWidth, meterHeight);
-            RectangleF meterFill = new RectangleF(10, 50, meterWidth * (sprintMeter / maxSprintMeter), meterHeight);
+            float meterHeight = 5;
+            RectangleF meterBackground = new RectangleF(5, 50, meterWidth, meterHeight);
+            RectangleF meterFill = new RectangleF(5, 50, meterWidth * (sprintMeter / maxSprintMeter), meterHeight);
             
             g.FillRectangle(Brushes.DarkGray, meterBackground);
-            g.DrawRectangle(Pens.Black, 10, 50, meterWidth, meterHeight);
+            g.DrawRectangle(Pens.Black, 5, 50, meterWidth, meterHeight);
 
             Brush meterBrush;
             if (!canSprint)

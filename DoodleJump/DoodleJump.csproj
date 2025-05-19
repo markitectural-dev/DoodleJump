@@ -9,6 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Forms\Image\breakT1.png" />
+    <None Remove="Forms\Image\break_t2.png" />
+    <None Remove="Forms\Image\jumpP.png" />
+    <None Remove="Forms\Image\platform.png" />
+    <None Remove="Forms\Image\player.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Forms\Image\breakT1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Forms\Image\break_t2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Forms\Image\jumpP.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Forms\Image\platform.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Forms\Image\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 
