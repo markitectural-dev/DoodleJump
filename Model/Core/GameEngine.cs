@@ -12,7 +12,8 @@ namespace Model.Core {
         public float CameraY { get; private set; } 
         private float HighestPoint { get; set; } 
         private float HighestCameraY { get; set; } 
-
+        private int lastBonusAwardedAtMilestone = 0;
+        private int totalBonusPoints = 0;
         private Random Random { get; set; } = new Random();
 
         public GameEngine(int screenWidth = 480, int screenHeight = 720) {
@@ -47,8 +48,13 @@ namespace Model.Core {
             Platforms = platforms;
             Score = score;
             IsGameOver = false;
-            HighestPoint = score;
             
+            HighestPoint = ScreenHeight - player.Y;
+            if (HighestPoint > score - totalBonusPoints) 
+                HighestPoint = score - totalBonusPoints;
+    
+            lastBonusAwardedAtMilestone = score / 5000;
+            totalBonusPoints = lastBonusAwardedAtMilestone * 500;
             HighestCameraY = ScreenHeight - (int)Player.Y - ScreenHeight / 2; 
         }
 
@@ -61,25 +67,31 @@ namespace Model.Core {
                 return;
 
             Player.Update();
-
             HandlePlayerWrapping();
-
             CheckPlatformCollisions();
 
             foreach (var platform in Platforms) {
                 platform.Update();
             }
-
             Platforms.RemoveAll(p => !p.IsActive);
 
             float currentHeight = ScreenHeight - Player.Y;
             if (currentHeight > HighestPoint) {
                 HighestPoint = currentHeight;
-                int oldScore = Score;
-                Score = (int)HighestPoint;
-                
-                if (Score > oldScore) 
-                    OnScoreChanged?.Invoke(Score);
+
+                ScoreValue baseScore = new ScoreValue((int)HighestPoint);
+                ScoreValue bonusScore = new ScoreValue(0);
+
+                if (Score / 5000 > lastBonusAwardedAtMilestone)
+                {
+                    lastBonusAwardedAtMilestone = Score / 5000;
+                    bonusScore = new ScoreValue(500);
+                    totalBonusPoints += 500;
+                }
+
+                ScoreValue finalScore = baseScore + new ScoreValue(totalBonusPoints);
+                Score = finalScore;
+                OnScoreChanged?.Invoke(Score);
             }
 
             if (Player.Y < ScreenHeight / 2) {
