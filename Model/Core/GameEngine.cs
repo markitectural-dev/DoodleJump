@@ -35,7 +35,7 @@ namespace Model.Core {
 
             Platforms.Add(new NormalPlatform(platformX, platformY));
 
-            Player = new Player(platformX + platformWidth / 2 - 20, platformY - 40);
+            Player = new Player(platformX + platformWidth / 2 - 20, platformY - 5);
 
             Player.Jump();
 
