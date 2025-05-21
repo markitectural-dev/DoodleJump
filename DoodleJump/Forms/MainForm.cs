@@ -24,7 +24,9 @@ namespace DoodleJump.Forms {
         private bool canSprint => sprintMeter > 20f; 
         private readonly int gameWidth = 480;
         private readonly int gameHeight = 720;
-        private Font smallFont = new Font("Arial", 8);
+        private bool flashScore = false;
+        private int flashTimer = 0;
+        private int lastTwoThousand = 0;
 
         private Image player;
         private Image normal_platform;
@@ -33,7 +35,8 @@ namespace DoodleJump.Forms {
         private Image jump_platform;
 
 
-        public MainForm(GameEngine engine, string savePath, SerializerType serializerType) {
+        public MainForm(GameEngine engine, string savePath, SerializerType serializerType)
+        {
             InitializeComponent();
 
             this.gameEngine = engine;
@@ -50,9 +53,25 @@ namespace DoodleJump.Forms {
             gameTimer = new System.Windows.Forms.Timer();
             gameTimer.Interval = 16;
             gameTimer.Tick += GameTimer_Tick;
+
+            lastTwoThousand = engine.Score / 2000;
+            this.gameEngine.OnScoreChanged += ScoreChanged;
         }
 
-        protected override void OnLoad(EventArgs e) {
+        private void ScoreChanged(int newScore)
+        {
+            int currentMilestone = newScore / 2000;
+
+            if (currentMilestone > lastTwoThousand)
+            {
+                flashScore = true;
+                flashTimer = 45;
+                lastTwoThousand = currentMilestone;
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
             base.OnLoad(e);
 
             player = Image.FromFile("Forms/Image/player.png");
@@ -163,7 +182,8 @@ namespace DoodleJump.Forms {
             this.Invalidate();
         }
 
-        protected override void OnPaint(PaintEventArgs e) {
+        protected override void OnPaint(PaintEventArgs e)
+        {
             base.OnPaint(e);
 
             Graphics g = e.Graphics;
@@ -182,7 +202,8 @@ namespace DoodleJump.Forms {
                     40, 40);
             }
 
-            foreach (var platform in gameEngine.Platforms) {
+            foreach (var platform in gameEngine.Platforms)
+            {
                 if (!platform.IsActive)
                     continue;
 
@@ -213,14 +234,50 @@ namespace DoodleJump.Forms {
             }
 
             string scoreText = $"Score: {gameEngine.Score}";
+
             g.DrawString(scoreText, Font, Brushes.Black, 10, 10);
-        
+
+            if (flashScore && flashTimer > 0)
+            {
+                string milestoneDisplay = $"{lastTwoThousand * 2000}"; 
+                Font milestoneFont = new Font("Arial", 18, FontStyle.Bold); 
+                SizeF textSize = g.MeasureString(milestoneDisplay, milestoneFont);
+
+                float centerX = (gameWidth - textSize.Width) / 2;
+                float centerY = gameHeight / 12; 
+
+                bool flickerState = (flashTimer / 8) % 2 == 0;
+
+                Brush textBrush = flickerState ? Brushes.SaddleBrown : Brushes.Orange;
+                Brush backgroundBrush = flickerState ? Brushes.LightYellow : Brushes.PaleGoldenrod; 
+                Pen borderPen = Pens.DarkGoldenrod;
+
+                float padding = 20f;
+                RectangleF backgroundRect = new RectangleF(
+                    centerX - padding,
+                    centerY - padding,
+                    textSize.Width + padding * 2,
+                    textSize.Height + padding * 2
+                );
+
+                g.FillRectangle(backgroundBrush, backgroundRect);
+                g.DrawRectangle(borderPen, Rectangle.Round(backgroundRect));
+
+                g.DrawString(milestoneDisplay, milestoneFont, textBrush, centerX, centerY);
+
+                flashTimer--;
+                if (flashTimer <= 0)
+                {
+                    flashScore = false;
+                }
+            }
+
 
             float meterWidth = 100;
             float meterHeight = 5;
             RectangleF meterBackground = new RectangleF(5, 50, meterWidth, meterHeight);
             RectangleF meterFill = new RectangleF(5, 50, meterWidth * (sprintMeter / maxSprintMeter), meterHeight);
-            
+
             g.FillRectangle(Brushes.DarkGray, meterBackground);
             g.DrawRectangle(Pens.Black, 5, 50, meterWidth, meterHeight);
 

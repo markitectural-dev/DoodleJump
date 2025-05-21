@@ -54,7 +54,8 @@ namespace Model.Core {
 
 
 
-
+        public delegate void ScoreChangedHandler(int newScore);
+        public event ScoreChangedHandler OnScoreChanged;
         public void Update() {
             if (IsGameOver)
                 return;
@@ -74,7 +75,11 @@ namespace Model.Core {
             float currentHeight = ScreenHeight - Player.Y;
             if (currentHeight > HighestPoint) {
                 HighestPoint = currentHeight;
+                int oldScore = Score;
                 Score = (int)HighestPoint;
+                
+                if (Score > oldScore) 
+                    OnScoreChanged?.Invoke(Score);
             }
 
             if (Player.Y < ScreenHeight / 2) {
