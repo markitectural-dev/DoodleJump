@@ -9,7 +9,7 @@ namespace DoodleJump.Forms {
     public partial class MenuForm : Form {
         private string defaultSavePath => Path.Combine(
             saveFolderPath,
-            $"save.{(cboSaveFormat.SelectedIndex == 0 ? "json" : "xml")}"
+            $"doodle-jump_game-state.{(cboSaveFormat.SelectedIndex == 0 ? "json" : "xml")}"
         );
         private string FormatPathForDisplay(string path, int maxLength = 25) {
             if (string.IsNullOrEmpty(path) || path.Length <= maxLength)
@@ -51,23 +51,29 @@ namespace DoodleJump.Forms {
 
         private void CheckSaveFileExists() {
             bool fileExists = File.Exists(defaultSavePath);
-            if (fileExists) {
-                try {
+            
+            if (fileExists)
+            {
+                try
+                {
                     string fileText = File.ReadAllText(defaultSavePath);
-                    if (!string.IsNullOrWhiteSpace(fileText) && fileText.Contains("PlayerX")) {
+                    if (!string.IsNullOrWhiteSpace(fileText) && fileText.Contains("PlayerX"))
+                    {
                         btnContinueGame.Enabled = true;
                         lblFileStatus.Text = "File valid";
                         lblFileStatus.ForeColor = Color.Green;
                         return;
                     }
-                    else {
+                    else
+                    {
                         btnContinueGame.Enabled = false;
                         lblFileStatus.Text = "Invalid file structure";
                         lblFileStatus.ForeColor = Color.Red;
                         return;
                     }
                 }
-                catch {
+                catch
+                {
                     btnContinueGame.Enabled = false;
                     lblFileStatus.Text = "Error reading save file";
                     lblFileStatus.ForeColor = Color.Red;
@@ -85,8 +91,8 @@ namespace DoodleJump.Forms {
         }
 
         private void lnkSaveFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog()) {
-                folderDialog.Description = "Select folder for game saves";
+            using (var folderDialog = new FolderBrowserDialog()) {
+                folderDialog.Description = "Select folder for game state saves";
                 folderDialog.ShowNewFolderButton = true;
 
                 if (folderDialog.ShowDialog() == DialogResult.OK) {
@@ -126,7 +132,7 @@ namespace DoodleJump.Forms {
                 SerializerType type = cboSaveFormat.SelectedIndex == 0
                                         ? SerializerType.JSON : SerializerType.XML;
 
-                GameSerializer serializer = GameSerializer.GetSerializer<GameSerializer>(type);
+                GameSerializer serializer = GetSerializer<GameSerializer>(type);
 
                 GameEngine gameEngine = serializer.LoadGame(defaultSavePath);
 
@@ -152,8 +158,5 @@ namespace DoodleJump.Forms {
             CheckSaveFileExists();
         }
 
-        private void lblTitle_Click(object sender, EventArgs e) {
-
-        }
     }
 }

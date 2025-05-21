@@ -4,7 +4,7 @@ using System.Drawing;
 namespace Model.Core {
     public abstract class Platform : IPlatform {
         public float X { get; protected set; }
-        public float Y { get; set; }
+        public float Y { get; protected set; }
         public float Width { get; protected set; }
         public float Height { get; protected set; }
         public bool IsActive { get; protected set; } = true;

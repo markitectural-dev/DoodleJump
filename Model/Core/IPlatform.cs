@@ -6,7 +6,7 @@ namespace Model.Core
     public interface IPlatform
     {
         float X { get; }
-        float Y { get; set; }
+        float Y { get; }
         float Width { get; }
         float Height { get; }
         bool IsActive { get; }

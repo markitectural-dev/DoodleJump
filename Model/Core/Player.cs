@@ -9,10 +9,10 @@ namespace Model.Core {
         public float Height { get; private set; }
         public float VelocityX { get; private set; }
         public float VelocityY { get; private set; }
-        public float InitialJumpVelocity { get; private set; } = -15.0f;
-        public float Gravity { get; private set; } = 0.5f;
-        public float MaxVelocityY { get; private set; } = 1000000.0f;
-        public float MoveSpeed { get; private set; } = 8.0f;
+        public float InitialJumpVelocity { get; private set; } 
+        public float Gravity { get; private set; } 
+        public float MaxVelocityY { get; private set; } 
+        public float MoveSpeed { get; private set; } 
 
         public Player(float x, float y, float width = 40, float height = 40) {
             X = x;
@@ -24,7 +24,6 @@ namespace Model.Core {
 
             InitialJumpVelocity = -13.0f;
             Gravity = 0.4f;
-            MaxVelocityY = 12.0f;
             MoveSpeed = 6.0f;
         }
 
@@ -55,14 +54,6 @@ namespace Model.Core {
 
         public void Update() {
             VelocityY += Gravity;
-
-            if (VelocityY > MaxVelocityY)
-                VelocityY = MaxVelocityY;
-
-            if (VelocityY > MaxVelocityY * 0.7f) {
-                float fallMultiplier = 1.0f + VelocityY / MaxVelocityY * 0.3f;
-                VelocityY += Gravity * fallMultiplier;
-            }
 
             if (Math.Abs(VelocityX) > 0.1f) 
                 VelocityX *= 0.95f;

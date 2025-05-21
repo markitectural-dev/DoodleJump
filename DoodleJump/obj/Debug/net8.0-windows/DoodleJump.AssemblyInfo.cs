@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DoodleJump")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15d6f3504b7a26916fac1b559f7ff2d6407f576a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af4f6252cf622b19bf154b9d6305bad80d8a9ae7")]
 [assembly: System.Reflection.AssemblyProductAttribute("DoodleJump")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DoodleJump")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

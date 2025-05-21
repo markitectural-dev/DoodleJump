@@ -5,14 +5,13 @@ namespace Model.Core {
 
         public Player Player { get; private set; }
         public List<IPlatform> Platforms { get; private set; }
-        public int Score { get; private set; } = 0;
+        public int Score { get; private set; } 
         public int ScreenWidth { get; private set; }
         public int ScreenHeight { get; private set; }
-        private float FallDistance { get; set; } = 0;
         public bool IsGameOver { get; private set; } = false;
-        public float CameraY { get; private set; } = 0;
-        private float HighestPoint { get; set; } = 0;
-        private float HighestCameraY { get; set; } = 0;
+        public float CameraY { get; private set; } 
+        private float HighestPoint { get; set; } 
+        private float HighestCameraY { get; set; } 
 
         private Random Random { get; set; } = new Random();
 

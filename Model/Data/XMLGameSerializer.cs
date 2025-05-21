@@ -40,9 +40,13 @@ namespace Model.Data {
                 Player player = new Player(gameState.PlayerX, gameState.PlayerY);
 
                 List<IPlatform> platforms = new List<IPlatform>();
-                foreach (var platformState in gameState.Platforms) {
+                
+                foreach (var platformState in gameState.Platforms)
+                {
                     IPlatform platform;
-                    switch (platformState.Type) {
+
+                    switch (platformState.Type)
+                    {
                         case "Normal":
                             platform = new NormalPlatform(platformState.X, platformState.Y);
                             break;
@@ -59,6 +63,7 @@ namespace Model.Data {
                             platform = new NormalPlatform(platformState.X, platformState.Y);
                             break;
                     }
+                    
                     platforms.Add(platform);
                 }
 

@@ -45,7 +45,7 @@
             lblTitle.Size = new Size(440, 86);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Doodle Jump";
-            lblTitle.Click += lblTitle_Click;
+     
             // 
             // btnNewGame
             // 

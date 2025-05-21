@@ -70,7 +70,7 @@ namespace DoodleJump.Forms {
 
             try {
                 if (!gameEngine.IsGameOver) {
-                    GameSerializer serializer = GameSerializer.GetSerializer<GameSerializer>(serializerType);
+                    GameSerializer serializer = GetSerializer<GameSerializer>(serializerType);
                     serializer.SaveGame(gameEngine, savePath);
                 }
             }
@@ -213,7 +213,7 @@ namespace DoodleJump.Forms {
             }
 
             string scoreText = $"Score: {gameEngine.Score}";
-            g.DrawString(scoreText, Font, Brushes.White, 10, 10);
+            g.DrawString(scoreText, Font, Brushes.Black, 10, 10);
         
 
             float meterWidth = 100;
