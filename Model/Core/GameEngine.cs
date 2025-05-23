@@ -48,14 +48,10 @@ namespace Model.Core {
             Platforms = platforms;
             Score = score;
             IsGameOver = false;
-            
-            HighestPoint = ScreenHeight - player.Y;
-            if (HighestPoint > score - totalBonusPoints) 
-                HighestPoint = score - totalBonusPoints;
-    
+            HighestPoint = ScreenHeight - player.Y;    
             lastBonusAwardedAtMilestone = score / 5000;
             totalBonusPoints = lastBonusAwardedAtMilestone * 500;
-            HighestCameraY = ScreenHeight - (int)Player.Y - ScreenHeight / 2; 
+            HighestCameraY = Player.Y - ScreenHeight / 2;
         }
 
 
@@ -67,12 +63,9 @@ namespace Model.Core {
                 return;
 
             Player.Update();
-            HandlePlayerWrapping();
+            Player.WrapAroundScreen(ScreenWidth);
             CheckPlatformCollisions();
 
-            foreach (var platform in Platforms) {
-                platform.Update();
-            }
             Platforms.RemoveAll(p => !p.IsActive);
 
             float currentHeight = ScreenHeight - Player.Y;
@@ -122,19 +115,6 @@ namespace Model.Core {
                     break;
                 }
             }
-        }
-
-
-        public void MovePlayerLeft() {
-            Player.MoveLeft();
-        }
-
-        public void MovePlayerRight() {
-            Player.MoveRight();
-        }
-
-        public void StopPlayerMovement() {
-            Player.StopMoving();
         }
     }
 }

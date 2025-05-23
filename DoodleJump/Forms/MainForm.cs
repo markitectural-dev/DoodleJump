@@ -30,9 +30,9 @@ namespace DoodleJump.Forms {
 
         private Image player;
         private Image normal_platform;
-        private Image break_platform_t1;
-        private Image break_platform_t2;
-        private Image jump_platform;
+        private Image breakable_platform;
+        private Image trick_platform;
+        private Image boost_platform;
 
 
         public MainForm(GameEngine engine, string savePath, SerializerType serializerType)
@@ -76,10 +76,9 @@ namespace DoodleJump.Forms {
 
             player = Image.FromFile("Forms/Image/player.png");
             normal_platform = Image.FromFile("Forms/Image/platform.png");
-            break_platform_t1 = Image.FromFile("Forms/Image/breakT1.png");
-            break_platform_t2 = Image.FromFile("Forms/Image/break_t2.png");
-            jump_platform = Image.FromFile("Forms/Image/jumpP.png");
-
+            breakable_platform = Image.FromFile("Forms/Image/breakT1.png");
+            trick_platform = Image.FromFile("Forms/Image/break_t2.png");
+            boost_platform = Image.FromFile("Forms/Image/jumpP.png");
 
             gameTimer.Start();
         }
@@ -216,13 +215,14 @@ namespace DoodleJump.Forms {
                 if (platform.Color == Color.Green)
                     i = normal_platform;
                 else if (platform.Color == Color.Orange)
-                    i = break_platform_t1;
+                    i = breakable_platform;
                 else if (platform.Color == Color.Blue)
-                    i = jump_platform;
+                    i = boost_platform;
                 else if (platform.Color == Color.Red)
-                    i = break_platform_t2;
+                    i = trick_platform;
                 else
                     i = null;
+
                 if (i != null)
                 {
                     g.DrawImage(i,
@@ -261,15 +261,13 @@ namespace DoodleJump.Forms {
                 );
 
                 g.FillRectangle(backgroundBrush, backgroundRect);
-                g.DrawRectangle(borderPen, Rectangle.Round(backgroundRect));
+                g.DrawRectangle(borderPen, backgroundRect);
 
                 g.DrawString(milestoneDisplay, milestoneFont, textBrush, centerX, centerY);
 
                 flashTimer--;
                 if (flashTimer <= 0)
-                {
                     flashScore = false;
-                }
             }
 
 

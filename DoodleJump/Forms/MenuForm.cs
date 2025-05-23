@@ -93,7 +93,6 @@ namespace DoodleJump.Forms {
         private void lnkSaveFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             using (var folderDialog = new FolderBrowserDialog()) {
                 folderDialog.Description = "Select folder for game state saves";
-                folderDialog.ShowNewFolderButton = true;
 
                 if (folderDialog.ShowDialog() == DialogResult.OK) {
                     saveFolderPath = folderDialog.SelectedPath;
@@ -155,7 +154,7 @@ namespace DoodleJump.Forms {
                 gameForm.ShowDialog();
             }
 
-            CheckSaveFileExists();
+           CheckSaveFileExists();
         }
 
     }

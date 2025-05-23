@@ -16,11 +16,6 @@ namespace Model.Core
             return new ScoreValue(a.Value + b.Value);
         }
 
-        public static ScoreValue operator *(ScoreValue score, float multiplier)
-        {
-            return new ScoreValue((int)(score.Value * multiplier));
-        }
-
         public static implicit operator int(ScoreValue score)
         {
             return score.Value;

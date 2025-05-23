@@ -18,6 +18,5 @@ namespace Model.Core {
             Height = height;
         }
         public abstract void Bounce(Player player);
-        public virtual void Update() {}
     }
 }

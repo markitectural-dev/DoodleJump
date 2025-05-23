@@ -46,9 +46,6 @@
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Doodle Jump";
      
-            // 
-            // btnNewGame
-            // 
             btnNewGame.BackColor = Color.LimeGreen;
             btnNewGame.Font = new Font("Segoe UI", 12F);
             btnNewGame.Location = new Point(204, 226);
@@ -120,7 +117,6 @@
             lblFileStatus.TabIndex = 6;
             lblFileStatus.Text = "No save found";
             
-            // MenuForm
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(743, 670);

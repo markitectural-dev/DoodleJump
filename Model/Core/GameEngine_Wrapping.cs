@@ -6,11 +6,6 @@ using System.Linq;
 namespace Model.Core {
 
     public partial class GameEngine {
-        
-        private void HandlePlayerWrapping() {
-            Player.WrapAroundScreen(ScreenWidth);
-        }
-
         private float GetSafePlatformX(float platformWidth) {
             int leftMargin = 20;
             int rightMargin = 20 + (int)platformWidth;
@@ -28,7 +23,7 @@ namespace Model.Core {
                     if (Math.Abs(platform.Y - topPlatformY) > 50)
                         continue;
                         
-                    if (Math.Abs(x - platform.X) < platformWidth * 1.2) {
+                    if (Math.Abs(platform.X - x) < platformWidth * 1.2) {
                         tooClose = true;
                         break;
                     }
@@ -37,12 +32,13 @@ namespace Model.Core {
                 if (!tooClose)
                     return x;
             }
+
             return Random.Next(leftMargin, ScreenWidth - rightMargin);
         }
 
         private void GeneratePlatformsWithinBounds() {
             int totalPlatforms = 15;
-            float lastPlatformY = ScreenHeight - 50;
+            float lastPlatformY = ScreenHeight - 100;
             float platformWidth = 60;
 
             for (int i = 0; i < totalPlatforms; i++) {

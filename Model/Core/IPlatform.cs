@@ -14,7 +14,5 @@ namespace Model.Core
         bool IsBreakable { get; }
         
         void Bounce(Player player);
-        
-        void Update();
     }
 }
